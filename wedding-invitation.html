@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- ============================================================
+     EDIT THIS: Page title shown on the browser tab
+============================================================ -->
+<title>Amelia & Julian — A Wedding Invitation</title>
+
+<meta name="description" content="With great joy, we invite you to our wedding celebration." />
+
+<!-- Google Fonts: elegant pairing of serif + romantic script + refined label -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Italiana&family=Pinyon+Script&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   1. THEME TOKENS — edit these values to restyle the entire site
+============================================================ */
+:root {
+  /* COLOR PALETTE — change these to recolor the whole invitation */
+  --ivory:        #f9f4ec;   /* page background, soft off-white */
+  --ivory-deep:   #f1e9dc;   /* subtle section variation */
+  --champagne:    #c9a96e;   /* champagne gold — primary accent */
+  --champagne-dk: #a3854a;   /* deeper gold for hovers / borders */
+  --sage:         #9caf88;   /* sage green */
+  --sage-dk:      #6f8467;   /* deeper sage for text accents */
+  --blush:        #e8c4c4;   /* soft blush pink */
+  --blush-dk:     #c79898;   /* deeper blush */
+  --ink:          #3a342c;   /* primary text — warm charcoal, not pure black */
+  --ink-soft:     #6a6358;   /* secondary text */
+  --line:         rgba(169, 145, 110, 0.28); /* hairline borders in gold */
+
+  /* TYPOGRAPHY */
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-script:  'Pinyon Script', cursive;
+  --font-label:   'Italiana', 'Cormorant Garamond', serif;
+  --font-body:    'Cormorant Garamond', 'Georgia', serif;
+
+  /* MOTION */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============================================================
+   2. RESET + BASE
+============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--ivory);
+  overflow-x: hidden;
+  /* Subtle paper grain — purely CSS, no external images */
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(232, 196, 196, 0.10), transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(156, 175, 136, 0.10), transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(201, 169, 110, 0.04), transparent 60%);
+  background-attachment: fixed;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+/* Selection styling */
+::selection { background: var(--champagne); color: var(--ivory); }
+
+/* ============================================================
+   3. UTILITIES
+============================================================ */
+.container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.label {
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: 0.45em;
+  font-size: 0.72rem;
+  color: var(--champagne-dk);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 6vw, 2.75rem);
+  font-style: italic;
+  text-align: center;
+  margin-top: 0.75rem;
+  color: var(--ink);
+}
+
+section {
+  padding: 6rem 0;
+  position: relative;
+}
+
+/* Botanical divider — small sprig used between sections */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem auto;
+  color: var(--champagne);
+}
+.divider::before, .divider::after {
+  content: '';
+  height: 1px;
+  width: 60px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+
+/* Reveal-on-scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s var(--ease), transform 1.2s var(--ease);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   4. HERO
+============================================================ */
+.hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  position: relative;
+  padding: 4rem 1.5rem;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at top, rgba(255, 255, 255, 0.6), transparent 60%),
+    linear-gradient(180deg, var(--ivory) 0%, var(--ivory-deep) 100%);
+}
+
+/* Floating botanical SVGs in hero corners */
+.hero-bot {
+  position: absolute;
+  width: 180px;
+  opacity: 0.55;
+  pointer-events: none;
+  animation: float 9s ease-in-out infinite;
+}
+.hero-bot.tl { top: 0; left: 0; transform: rotate(0deg); }
+.hero-bot.br { bottom: 0; right: 0; transform: rotate(180deg); animation-delay: -4.5s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50%      { transform: translateY(-12px) rotate(var(--r, 0deg)); }
+}
+.hero-bot.br { --r: 180deg; }
+
+.hero-content { position: relative; z-index: 2; }
+
+.hero-intro {
+  display: inline-block;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 1.4s var(--ease) 0.2s forwards;
+}
+
+.hero-names {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3.4rem, 13vw, 6.5rem);
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+.hero-names .name {
+  display: block;
+  opacity: 0;
+  animation: fadeUp 1.4s var(--ease) forwards;
+}
+.hero-names .name.first  { animation-delay: 0.5s; }
+.hero-names .name.second { animation-delay: 1.1s; }
+
+.hero-amp {
+  font-family: var(--font-script);
+  font-size: clamp(3rem, 10vw, 5rem);
+  color: var(--champagne);
+  display: block;
+  margin: 0.4rem 0;
+  line-height: 1;
+  opacity: 0;
+  animation: fadeUp 1.4s var(--ease) 0.85s forwards, gentleSpin 14s ease-in-out 2.5s infinite;
+  transform-origin: center;
+}
+
+@keyframes gentleSpin {
+  0%, 100% { transform: rotate(-2deg); }
+  50%      { transform: rotate(2deg); }
+}
+
+.hero-date {
+  margin-top: 2.5rem;
+  font-family: var(--font-label);
+  letter-spacing: 0.4em;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  opacity: 0;
+  animation: fadeUp 1.4s var(--ease) 1.6s forwards;
+}
+
+.hero-date span {
+  display: inline-block;
+  padding: 0 0.75rem;
+  position: relative;
+}
+.hero-date span:not(:last-child)::after {
+  content: '·';
+  position: absolute;
+  right: -0.25rem;
+  color: var(--champagne);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll indicator */
+.scroll-cue {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-label);
+  letter-spacing: 0.3em;
+  font-size: 0.65rem;
+  color: var(--ink-soft);
+  opacity: 0;
+  animation: fadeUp 1.4s var(--ease) 2.2s forwards;
+}
+.scroll-cue::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: var(--champagne);
+  margin: 0.75rem auto 0;
+  animation: scrollLine 2.4s ease-in-out infinite;
+  transform-origin: top;
+}
+@keyframes scrollLine {
+  0%   { transform: scaleY(0); }
+  50%  { transform: scaleY(1); }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ============================================================
+   5. COUNTDOWN
+============================================================ */
+.countdown-section {
+  background: var(--ivory);
+}
+
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.countdown-cell {
+  text-align: center;
+  padding: 1.25rem 0.5rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.5);
+  position: relative;
+  transition: transform 0.4s var(--ease);
+}
+.countdown-cell:hover {
+  transform: translateY(-3px);
+}
+.countdown-cell::before, .countdown-cell::after {
+  content: '';
+  position: absolute;
+  width: 8px; height: 8px;
+  border: 1px solid var(--champagne);
+}
+.countdown-cell::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.countdown-cell::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+.countdown-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 6vw, 2.5rem);
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.countdown-lab {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+}
+
+/* ============================================================
+   6. INVITATION MESSAGE
+============================================================ */
+.invitation-section {
+  background: var(--ivory-deep);
+  text-align: center;
+}
+
+.invitation-message {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.15rem, 3.5vw, 1.45rem);
+  line-height: 1.85;
+  color: var(--ink);
+  max-width: 580px;
+  margin: 1.5rem auto 0;
+}
+
+.invitation-script {
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 6vw, 2.6rem);
+  color: var(--sage-dk);
+  margin: 1.5rem 0 0.25rem;
+}
+
+/* ============================================================
+   7. EVENT DETAILS
+============================================================ */
+.details-section { background: var(--ivory); }
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+@media (min-width: 720px) {
+  .details-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.detail-card {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--line);
+  position: relative;
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+.detail-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -25px rgba(58, 52, 44, 0.25);
+}
+.detail-icon {
+  width: 36px;
+  height: 36px;
+  margin: 0 auto 1rem;
+  color: var(--champagne);
+}
+.detail-title {
+  font-family: var(--font-label);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.75rem;
+}
+.detail-value {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--ink);
+}
+.detail-sub {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  margin-top: 0.35rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-label);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  padding: 1rem 2.25rem;
+  border: 1px solid var(--champagne);
+  background: transparent;
+  color: var(--champagne-dk);
+  cursor: pointer;
+  transition: all 0.5s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--champagne);
+  transform: translateX(-101%);
+  transition: transform 0.6s var(--ease);
+  z-index: 0;
+}
+.btn:hover::before { transform: translateX(0); }
+.btn:hover { color: var(--ivory); border-color: var(--champagne-dk); }
+.btn span, .btn svg { position: relative; z-index: 1; }
+.btn svg { width: 16px; height: 16px; }
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+.btn-sage {
+  border-color: var(--sage-dk);
+  color: var(--sage-dk);
+}
+.btn-sage::before { background: var(--sage-dk); }
+.btn-sage:hover { color: var(--ivory); }
+
+/* ============================================================
+   8. SCHEDULE TIMELINE
+============================================================ */
+.schedule-section { background: var(--ivory-deep); }
+
+.timeline {
+  margin-top: 3rem;
+  position: relative;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--line) 10%, var(--line) 90%, transparent);
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 60px;
+  padding-bottom: 2.5rem;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+
+.timeline-dot {
+  position: absolute;
+  left: 14px;
+  top: 6px;
+  width: 17px; height: 17px;
+  border-radius: 50%;
+  background: var(--ivory);
+  border: 1.5px solid var(--champagne);
+  display: grid; place-items: center;
+}
+.timeline-dot::after {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--champagne);
+}
+
+.timeline-time {
+  font-family: var(--font-label);
+  letter-spacing: 0.25em;
+  font-size: 0.75rem;
+  color: var(--champagne-dk);
+  margin-bottom: 0.35rem;
+}
+.timeline-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+.timeline-desc {
+  font-size: 0.98rem;
+  color: var(--ink-soft);
+}
+
+/* ============================================================
+   9. DRESS CODE
+============================================================ */
+.dress-section {
+  background: var(--ivory);
+  text-align: center;
+}
+
+.dress-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--ink);
+  margin-top: 1.5rem;
+}
+
+.dress-suggestion {
+  margin-top: 0.5rem;
+  color: var(--ink-soft);
+  font-size: 1rem;
+}
+
+.swatches {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.25rem;
+}
+
+.swatch {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  box-shadow: inset 0 0 0 4px var(--ivory);
+  transition: transform 0.4s var(--ease);
+}
+.swatch:hover { transform: scale(1.08) rotate(6deg); }
+
+/* EDIT THIS: dress-code palette swatches — change colors to match your dress code */
+.s1 { background: var(--sage); }
+.s2 { background: var(--blush); }
+.s3 { background: var(--champagne); }
+.s4 { background: var(--ivory-deep); }
+.s5 { background: #6b5a48; } /* warm taupe */
+
+/* ============================================================
+   10. PHOTO GALLERY
+============================================================ */
+.gallery-section { background: var(--ivory-deep); }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  margin-top: 3rem;
+}
+@media (min-width: 600px) {
+  .gallery { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+}
+
+.photo {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--blush) 0%, var(--champagne) 50%, var(--sage) 100%);
+  cursor: pointer;
+}
+.photo:nth-child(2) { background: linear-gradient(135deg, var(--sage) 0%, var(--ivory-deep) 100%); }
+.photo:nth-child(3) { background: linear-gradient(135deg, var(--champagne) 0%, var(--blush) 100%); }
+.photo:nth-child(4) { background: linear-gradient(135deg, var(--blush) 0%, var(--sage) 100%); }
+.photo:nth-child(5) { background: linear-gradient(135deg, var(--ivory-deep) 0%, var(--champagne) 100%); }
+.photo:nth-child(6) { background: linear-gradient(135deg, var(--sage) 0%, var(--blush) 100%); }
+
+.photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease);
+}
+.photo:hover img { transform: scale(1.06); }
+
+/* placeholder camera glyph centered in each empty photo cell */
+.photo-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+.photo-placeholder svg { width: 36px; height: 36px; }
+
+/* Decorative initials overlay */
+.photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(58, 52, 44, 0.25));
+  pointer-events: none;
+}
+
+/* ============================================================
+   11. RSVP
+============================================================ */
+.rsvp-section {
+  background: var(--ivory);
+  text-align: center;
+}
+
+.rsvp-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.2rem;
+  max-width: 520px;
+  margin: 1.5rem auto 0;
+  color: var(--ink-soft);
+}
+
+.btn-large {
+  margin-top: 2.5rem;
+  padding: 1.25rem 3rem;
+  font-size: 0.78rem;
+  background: var(--champagne);
+  color: var(--ivory);
+  border-color: var(--champagne);
+}
+.btn-large::before { background: var(--champagne-dk); }
+
+.rsvp-deadline {
+  font-family: var(--font-label);
+  letter-spacing: 0.3em;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  margin-top: 1.5rem;
+}
+
+/* ============================================================
+   12. MUSIC TOGGLE (floating button)
+============================================================ */
+.music-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--ivory);
+  border: 1px solid var(--champagne);
+  color: var(--champagne-dk);
+  cursor: pointer;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 12px 28px -10px rgba(58, 52, 44, 0.25);
+  transition: transform 0.4s var(--ease), background 0.4s var(--ease);
+}
+.music-btn:hover { transform: scale(1.08); }
+.music-btn.playing {
+  background: var(--champagne);
+  color: var(--ivory);
+}
+.music-btn svg { width: 22px; height: 22px; }
+
+.music-btn.playing .note-1 { animation: pulse 1.4s ease-in-out infinite; }
+.music-btn.playing .note-2 { animation: pulse 1.4s ease-in-out 0.3s infinite; }
+@keyframes pulse {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2px); }
+}
+
+/* ============================================================
+   13. FOOTER
+============================================================ */
+.footer {
+  background: var(--ivory-deep);
+  padding: 5rem 1.5rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-thanks {
+  font-family: var(--font-script);
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  color: var(--champagne);
+  line-height: 1;
+}
+.footer-names {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.4rem;
+  margin-top: 1rem;
+  color: var(--ink);
+}
+.footer-date {
+  font-family: var(--font-label);
+  letter-spacing: 0.4em;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  margin-top: 1rem;
+}
+
+.footer-bot {
+  width: 90px;
+  margin: 2rem auto 0;
+  color: var(--sage);
+  opacity: 0.7;
+}
+
+/* ============================================================
+   14. ACCESSIBILITY: respect reduced motion
+============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   15. SMALL-SCREEN POLISH
+============================================================ */
+@media (max-width: 480px) {
+  section { padding: 4.5rem 0; }
+  .hero-bot { width: 130px; }
+  .countdown { gap: 0.45rem; }
+  .countdown-cell { padding: 1rem 0.25rem; }
+  .countdown-lab { font-size: 0.55rem; letter-spacing: 0.22em; }
+  .btn { padding: 0.9rem 1.6rem; font-size: 0.68rem; letter-spacing: 0.25em; }
+  .timeline::before { left: 18px; }
+  .timeline-item { padding-left: 50px; }
+  .timeline-dot { left: 10px; }
+  .swatch { width: 46px; height: 46px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     SVG SYMBOLS — botanical illustrations reused across the site
+============================================================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Olive / eucalyptus sprig used as botanical accent -->
+    <symbol id="sprig" viewBox="0 0 200 200">
+      <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+        <path d="M20 180 Q 60 120, 110 80 T 180 25"/>
+        <!-- Leaves along the stem -->
+        <ellipse cx="40" cy="155" rx="14" ry="6" transform="rotate(-30 40 155)" fill="currentColor" fill-opacity="0.55"/>
+        <ellipse cx="58" cy="138" rx="13" ry="5.5" transform="rotate(-35 58 138)" fill="currentColor" fill-opacity="0.55"/>
+        <ellipse cx="78" cy="118" rx="14" ry="6" transform="rotate(-40 78 118)" fill="currentColor" fill-opacity="0.55"/>
+        <ellipse cx="98" cy="100" rx="13" ry="5.5" transform="rotate(-45 98 100)" fill="currentColor" fill-opacity="0.55"/>
+        <ellipse cx="120" cy="80" rx="14" ry="6" transform="rotate(-50 120 80)" fill="currentColor" fill-opacity="0.55"/>
+        <ellipse cx="142" cy="62" rx="12" ry="5" transform="rotate(-55 142 62)" fill="currentColor" fill-opacity="0.55"/>
+        <ellipse cx="162" cy="45" rx="11" ry="4.5" transform="rotate(-60 162 45)" fill="currentColor" fill-opacity="0.55"/>
+        <!-- Underside leaves -->
+        <ellipse cx="50" cy="170" rx="11" ry="4.5" transform="rotate(40 50 170)" fill="currentColor" fill-opacity="0.4"/>
+        <ellipse cx="72" cy="148" rx="11" ry="4.5" transform="rotate(35 72 148)" fill="currentColor" fill-opacity="0.4"/>
+        <ellipse cx="92" cy="125" rx="11" ry="4.5" transform="rotate(30 92 125)" fill="currentColor" fill-opacity="0.4"/>
+        <ellipse cx="115" cy="105" rx="11" ry="4.5" transform="rotate(25 115 105)" fill="currentColor" fill-opacity="0.4"/>
+        <ellipse cx="138" cy="86" rx="10" ry="4" transform="rotate(20 138 86)" fill="currentColor" fill-opacity="0.4"/>
+      </g>
+    </symbol>
+
+    <!-- Small floral divider -->
+    <symbol id="floral-div" viewBox="0 0 100 30">
+      <g fill="currentColor" stroke="currentColor" stroke-width="0.8" stroke-linecap="round">
+        <circle cx="50" cy="15" r="3.5" fill="currentColor"/>
+        <ellipse cx="42" cy="15" rx="6" ry="2.5" fill="currentColor" fill-opacity="0.6"/>
+        <ellipse cx="58" cy="15" rx="6" ry="2.5" fill="currentColor" fill-opacity="0.6"/>
+        <line x1="0" y1="15" x2="32" y2="15" fill="none" stroke-width="0.6"/>
+        <line x1="68" y1="15" x2="100" y2="15" fill="none" stroke-width="0.6"/>
+        <circle cx="32" cy="15" r="1.2"/>
+        <circle cx="68" cy="15" r="1.2"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============================================================
+     SECTION 1 — HERO with bride & groom names
+     EDIT NAMES, INTRO LINE, AND HERO DATE BELOW
+============================================================ -->
+<header class="hero">
+  <!-- Botanical corners -->
+  <svg class="hero-bot tl" aria-hidden="true" style="color: var(--sage);"><use href="#sprig"/></svg>
+  <svg class="hero-bot br" aria-hidden="true" style="color: var(--sage-dk);"><use href="#sprig"/></svg>
+
+  <div class="hero-content">
+    <div class="hero-intro">
+      <span class="label">Together with our families</span>
+    </div>
+
+    <h1 class="hero-names">
+      <!-- EDIT: Bride's name -->
+      <span class="name first">Amelia</span>
+      <span class="hero-amp">&amp;</span>
+      <!-- EDIT: Groom's name -->
+      <span class="name second">Julian</span>
+    </h1>
+
+    <p class="hero-date">
+      <!-- EDIT: Hero subtitle date / location -->
+      <span>Saturday</span><span>14 . 09 . 2026</span><span>Tuscany</span>
+    </p>
+  </div>
+
+  <div class="scroll-cue">Scroll</div>
+</header>
+
+<!-- ============================================================
+     SECTION 2 — COUNTDOWN TIMER
+     EDIT THE WEDDING DATE/TIME IN THE JAVASCRIPT CONFIG
+     AT THE BOTTOM OF THIS FILE.
+============================================================ -->
+<section class="countdown-section">
+  <div class="container reveal">
+    <p class="label" style="display:block; text-align:center;">Counting the moments</p>
+    <h2 class="section-title">Until we say "I do"</h2>
+
+    <div class="countdown" id="countdown" aria-live="polite">
+      <div class="countdown-cell">
+        <div class="countdown-num" id="cd-days">00</div>
+        <div class="countdown-lab">Days</div>
+      </div>
+      <div class="countdown-cell">
+        <div class="countdown-num" id="cd-hours">00</div>
+        <div class="countdown-lab">Hours</div>
+      </div>
+      <div class="countdown-cell">
+        <div class="countdown-num" id="cd-mins">00</div>
+        <div class="countdown-lab">Minutes</div>
+      </div>
+      <div class="countdown-cell">
+        <div class="countdown-num" id="cd-secs">00</div>
+        <div class="countdown-lab">Seconds</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3 — INVITATION MESSAGE
+     EDIT THE ROMANTIC MESSAGE BELOW
+============================================================ -->
+<section class="invitation-section">
+  <div class="container reveal">
+    <svg class="divider" aria-hidden="true" style="color: var(--champagne); width: 120px;"><use href="#floral-div"/></svg>
+
+    <p class="label">An Invitation</p>
+    <p class="invitation-script">With love and joy</p>
+
+    <p class="invitation-message">
+      <!-- EDIT: Romantic invitation message -->
+      Two souls have found their forever in each other. We would be honoured to have you witness the beginning of our shared story — a celebration of love, of family, and of all the beautiful moments still to come.
+    </p>
+
+    <svg class="divider" aria-hidden="true" style="color: var(--champagne); width: 120px; margin-top: 2.5rem;"><use href="#floral-div"/></svg>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4 — EVENT DETAILS (date, time, venue)
+     EDIT DATE / TIME / VENUE INFORMATION BELOW
+============================================================ -->
+<section class="details-section">
+  <div class="container reveal">
+    <p class="label" style="display:block; text-align:center;">Save the date</p>
+    <h2 class="section-title">Event Details</h2>
+
+    <div class="details-grid">
+      <!-- DATE CARD -->
+      <div class="detail-card">
+        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="16" rx="1"/>
+          <path d="M3 9h18M8 3v4M16 3v4"/>
+          <circle cx="12" cy="14" r="1.2" fill="currentColor"/>
+        </svg>
+        <p class="detail-title">Date</p>
+        <!-- EDIT: Date display -->
+        <p class="detail-value">14<sup style="font-size:0.55em; vertical-align:super;">th</sup> September</p>
+        <p class="detail-sub">Saturday, 2026</p>
+      </div>
+
+      <!-- TIME CARD -->
+      <div class="detail-card">
+        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 7v5l3 2"/>
+        </svg>
+        <p class="detail-title">Time</p>
+        <!-- EDIT: Ceremony time -->
+        <p class="detail-value">Four o'clock</p>
+        <p class="detail-sub">in the afternoon</p>
+      </div>
+
+      <!-- VENUE CARD -->
+      <div class="detail-card">
+        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+          <path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13z"/>
+          <circle cx="12" cy="9" r="2.5"/>
+        </svg>
+        <p class="detail-title">Venue</p>
+        <!-- EDIT: Venue name and address -->
+        <p class="detail-value">Villa Cipressi</p>
+        <p class="detail-sub">Val d'Orcia, Tuscany</p>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SECTION 5 — GOOGLE MAPS BUTTON
+         EDIT THE href TO YOUR GOOGLE MAPS LINK
+    ============================================================ -->
+    <div class="btn-row">
+      <a class="btn btn-sage"
+         href="https://maps.google.com/?q=Villa+Cipressi+Val+d%27Orcia+Tuscany"
+         target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+          <path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13z"/>
+          <circle cx="12" cy="9" r="2.5"/>
+        </svg>
+        <span>View Location</span>
+      </a>
+
+      <!-- ============================================================
+           SECTION 10 — ADD TO CALENDAR BUTTON
+           Generates an .ics file using the JS config below
+      ============================================================ -->
+      <button class="btn" id="add-to-calendar" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="16" rx="1"/>
+          <path d="M3 9h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/>
+        </svg>
+        <span>Add to Calendar</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6 — WEDDING SCHEDULE TIMELINE
+     EDIT TIMES AND EVENTS IN THE LIST BELOW
+============================================================ -->
+<section class="schedule-section">
+  <div class="container reveal">
+    <p class="label" style="display:block; text-align:center;">The day, hour by hour</p>
+    <h2 class="section-title">Wedding Schedule</h2>
+
+    <div class="timeline">
+      <!-- EDIT: Each timeline-item below -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-time">3:30 PM</p>
+        <h3 class="timeline-title">Welcome &amp; Arrival</h3>
+        <p class="timeline-desc">Guests arrive and are greeted with refreshments in the gardens.</p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-time">4:00 PM</p>
+        <h3 class="timeline-title">The Ceremony</h3>
+        <p class="timeline-desc">An intimate exchange of vows beneath the cypress trees.</p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-time">5:00 PM</p>
+        <h3 class="timeline-title">Cocktail Hour</h3>
+        <p class="timeline-desc">Champagne, canapés and golden-hour photographs on the terrace.</p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-time">7:00 PM</p>
+        <h3 class="timeline-title">Dinner Reception</h3>
+        <p class="timeline-desc">A long-table feast under the stars, with toasts and stories.</p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-time">9:30 PM</p>
+        <h3 class="timeline-title">Dancing &amp; Celebration</h3>
+        <p class="timeline-desc">First dance, live music, and dancing until late into the evening.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 7 — DRESS CODE
+     EDIT DRESS-CODE TEXT AND SWATCH COLORS (CSS .s1–.s5 above)
+============================================================ -->
+<section class="dress-section">
+  <div class="container reveal">
+    <p class="label">A note on attire</p>
+    <h2 class="section-title">Dress Code</h2>
+
+    <!-- EDIT: Dress code description -->
+    <p class="dress-text">Garden Formal · Black Tie Optional</p>
+    <p class="dress-suggestion">We invite you to dress in soft earthy tones to complement the Tuscan setting.</p>
+
+    <div class="swatches" aria-hidden="true">
+      <span class="swatch s1" title="Sage"></span>
+      <span class="swatch s2" title="Blush"></span>
+      <span class="swatch s3" title="Champagne"></span>
+      <span class="swatch s4" title="Ivory"></span>
+      <span class="swatch s5" title="Taupe"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 8 — PHOTO GALLERY (placeholder)
+     EDIT: Replace each .photo's contents with an <img src="..."/>
+     to show your real photos. Example:
+       <div class="photo"><img src="photo1.jpg" alt=""/></div>
+============================================================ -->
+<section class="gallery-section">
+  <div class="container reveal">
+    <p class="label" style="display:block; text-align:center;">Moments together</p>
+    <h2 class="section-title">Our Story in Pictures</h2>
+
+    <div class="gallery">
+      <!-- EDIT: Replace placeholder content with <img src="your-photo.jpg" alt=""> -->
+      <div class="photo"><div class="photo-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.5-2h5L16 6"/></svg></div></div>
+      <div class="photo"><div class="photo-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.5-2h5L16 6"/></svg></div></div>
+      <div class="photo"><div class="photo-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.5-2h5L16 6"/></svg></div></div>
+      <div class="photo"><div class="photo-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.5-2h5L16 6"/></svg></div></div>
+      <div class="photo"><div class="photo-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.5-2h5L16 6"/></svg></div></div>
+      <div class="photo"><div class="photo-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="4"/><path d="M8 6l1.5-2h5L16 6"/></svg></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 9 — RSVP via WhatsApp
+     EDIT WhatsApp number AND prefilled message
+     in the JavaScript config at the bottom of this file.
+============================================================ -->
+<section class="rsvp-section">
+  <div class="container reveal">
+    <p class="label">Will you join us?</p>
+    <h2 class="section-title">Kindly Respond</h2>
+
+    <p class="rsvp-text">
+      <!-- EDIT: RSVP message text -->
+      Your presence would mean the world to us. Please confirm your attendance via WhatsApp by the date below.
+    </p>
+
+    <a id="rsvp-link" class="btn btn-large" href="#" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.7-.8-2.8-1.5-3.9-3.4-.3-.5.3-.5.8-1.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.2 3.4 5.4 4.7.7.3 1.3.5 1.8.6.7.2 1.4.2 2 .1.6-.1 1.7-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4z"/>
+        <path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3c-.8-1.4-1.3-2.9-1.3-4.5 0-4.5 3.7-8.2 8.2-8.2s8.2 3.7 8.2 8.2-3.6 8.4-8 8.4z"/>
+      </svg>
+      <span>RSVP via WhatsApp</span>
+    </a>
+
+    <!-- EDIT: RSVP deadline -->
+    <p class="rsvp-deadline">Please respond by 1<sup>st</sup> August 2026</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 12 — FOOTER (thank you note)
+============================================================ -->
+<footer class="footer">
+  <p class="footer-thanks">Thank You</p>
+  <p class="footer-names">
+    <!-- EDIT: Footer signature -->
+    Amelia &amp; Julian
+  </p>
+  <p class="footer-date">14 . 09 . 2026 · Tuscany, Italy</p>
+
+  <svg class="footer-bot" aria-hidden="true"><use href="#floral-div"/></svg>
+</footer>
+
+<!-- ============================================================
+     SECTION 11 — BACKGROUND MUSIC TOGGLE
+     EDIT the audio src below to your own song URL.
+     Note: browsers block autoplay; the toggle starts/pauses on tap.
+============================================================ -->
+<button class="music-btn" id="music-btn" aria-label="Toggle background music" type="button">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path class="note-1" d="M9 17V5l11-2v12"/>
+    <circle class="note-2" cx="6" cy="17" r="3"/>
+    <circle cx="17" cy="15" r="3"/>
+  </svg>
+</button>
+
+<!-- EDIT: Replace the src below with the URL or relative path of your background song (mp3) -->
+<audio id="bg-music" loop preload="none">
+  <source src="your-romantic-song.mp3" type="audio/mpeg" />
+</audio>
+
+
+<!-- ============================================================
+     JAVASCRIPT — CONFIG + INTERACTIVITY
+     EDIT THE CONFIG BLOCK BELOW TO UPDATE THE WEDDING DETAILS
+============================================================ -->
+<script>
+/* ============================================================
+   ✦ WEDDING CONFIG — edit these values to personalise the site
+============================================================ */
+const WEDDING = {
+  brideName:    'Amelia',
+  groomName:    'Julian',
+
+  // Wedding date & time in YYYY-MM-DDTHH:MM:SS format (24h, local time)
+  // Example: '2026-09-14T16:00:00'
+  dateTime:     '2026-09-14T16:00:00',
+
+  // Duration in hours — used to set the calendar event end time
+  durationHours: 6,
+
+  venueName:    'Villa Cipressi',
+  venueAddress: 'Val d\'Orcia, Tuscany, Italy',
+
+  // RSVP WhatsApp number in international format, no '+' or spaces
+  // Example: 393331234567 for Italy, 14155551234 for the US
+  whatsappNumber: '393331234567',
+
+  // RSVP message that will be pre-filled in WhatsApp when guests tap the button
+  rsvpMessage:  'Hello! I am happy to confirm my attendance to Amelia & Julian\'s wedding on 14 September 2026. ✨'
+};
+
+/* ============================================================
+   1. COUNTDOWN TIMER
+============================================================ */
+(function initCountdown() {
+  const target = new Date(WEDDING.dateTime).getTime();
+  const elDays  = document.getElementById('cd-days');
+  const elHours = document.getElementById('cd-hours');
+  const elMins  = document.getElementById('cd-mins');
+  const elSecs  = document.getElementById('cd-secs');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function tick() {
+    const now  = Date.now();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      elDays.textContent = elHours.textContent = elMins.textContent = elSecs.textContent = '00';
+      document.querySelector('.countdown-section .section-title').textContent = "Today is the day";
+      clearInterval(timer);
+      return;
+    }
+
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+
+    elDays.textContent  = pad(d);
+    elHours.textContent = pad(h);
+    elMins.textContent  = pad(m);
+    elSecs.textContent  = pad(s);
+  }
+
+  tick();
+  const timer = setInterval(tick, 1000);
+})();
+
+/* ============================================================
+   2. RSVP — WhatsApp link with prefilled message
+============================================================ */
+(function initRSVP() {
+  const link = document.getElementById('rsvp-link');
+  const text = encodeURIComponent(WEDDING.rsvpMessage);
+  link.href = `https://wa.me/${WEDDING.whatsappNumber}?text=${text}`;
+})();
+
+/* ============================================================
+   3. ADD TO CALENDAR — generates .ics file on click
+============================================================ */
+(function initCalendar() {
+  const btn = document.getElementById('add-to-calendar');
+
+  function toICSDate(date) {
+    // YYYYMMDDTHHMMSS in UTC
+    const pad = n => String(n).padStart(2, '0');
+    return date.getUTCFullYear()
+         + pad(date.getUTCMonth() + 1)
+         + pad(date.getUTCDate())
+         + 'T'
+         + pad(date.getUTCHours())
+         + pad(date.getUTCMinutes())
+         + pad(date.getUTCSeconds())
+         + 'Z';
+  }
+
+  btn.addEventListener('click', () => {
+    const start = new Date(WEDDING.dateTime);
+    const end   = new Date(start.getTime() + WEDDING.durationHours * 3600 * 1000);
+
+    const ics = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Wedding Invitation//EN',
+      'BEGIN:VEVENT',
+      `UID:${Date.now()}@wedding`,
+      `DTSTAMP:${toICSDate(new Date())}`,
+      `DTSTART:${toICSDate(start)}`,
+      `DTEND:${toICSDate(end)}`,
+      `SUMMARY:${WEDDING.brideName} & ${WEDDING.groomName} — Wedding`,
+      `DESCRIPTION:Join us for the wedding of ${WEDDING.brideName} and ${WEDDING.groomName}.`,
+      `LOCATION:${WEDDING.venueName}, ${WEDDING.venueAddress}`,
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n');
+
+    const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href = url;
+    a.download = `${WEDDING.brideName}-${WEDDING.groomName}-Wedding.ics`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+})();
+
+/* ============================================================
+   4. BACKGROUND MUSIC TOGGLE
+============================================================ */
+(function initMusic() {
+  const btn   = document.getElementById('music-btn');
+  const audio = document.getElementById('bg-music');
+  audio.volume = 0.4;
+
+  btn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play().then(() => {
+        btn.classList.add('playing');
+      }).catch(err => {
+        // Likely no audio source loaded yet — fail silently
+        console.warn('Audio playback failed:', err);
+      });
+    } else {
+      audio.pause();
+      btn.classList.remove('playing');
+    }
+  });
+})();
+
+/* ============================================================
+   5. SCROLL REVEAL — fade sections in as they enter the viewport
+============================================================ */
+(function initReveal() {
+  const els = document.querySelectorAll('.reveal');
+  const io  = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(el => io.observe(el));
+})();
+</script>
+
+</body>
+</html>
